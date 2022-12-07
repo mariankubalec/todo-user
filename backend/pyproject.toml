@@ -2,6 +2,6 @@
 name = "todouser"
 version = "0.1.0.dev"
 description = "Todo + User"
-autors = []
+authors = []
 [tool.poetry.dependencies]
 python = "^3.7"
