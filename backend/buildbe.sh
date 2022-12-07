@@ -10,6 +10,6 @@ cd backend
 
 # python manage.py collectstatic --no-input
 python manage.py migrate
-python manage.py runserver
+#python manage.py runserver
 
 #poetry add gunicorn
