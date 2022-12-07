@@ -40,7 +40,7 @@ class LoginView(APIView):
 
         response = Response()
 
-        response.set_cookie(key='jwt', value=token, httponly=True, domain=".onrender.com")
+        # response.set_cookie(key='jwt', value=token, httponly=True)
         response.data = {
             "jwt": token
         }
@@ -51,9 +51,10 @@ class LoginView(APIView):
 class UserView(APIView):
 
     def get(self, request):
-        token = request.COOKIES.get('jwt')
+        # token = request.COOKIES.get('jwt')
+        token = request.headers.get('Authorization')
 
-        if not token:
+        if not token or token == '':
             raise AuthenticationFailed('Unauthenticated!')
 
         try:

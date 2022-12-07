@@ -15,8 +15,13 @@ export default {
 
     onMounted(async () => {
       try {
+        const value = localStorage.getItem("jwt") || "";
+
         const response = await fetch(process.env.VUE_APP_ROOT_API + '/users/user', {
-          headers: {'Content-Type': 'application/json'},
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': value
+          },
           credentials: 'include'
         });
 

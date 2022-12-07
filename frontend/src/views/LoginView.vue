@@ -22,17 +22,23 @@ export default {
     const router = useRouter();
 
     const submit = async () => {
-      console.log(data);
-      const response = await fetch(process.env.VUE_APP_ROOT_API + '/users/login', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        credentials: 'include',
-        body: JSON.stringify(data)
-      });
-      const content = await response.json();
-      console.log('>>> J W T <<<');
-      console.log(content.jwt);
-      await router.push('/');
+      try {
+        const response = await fetch(process.env.VUE_APP_ROOT_API + '/users/login', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          credentials: 'include',
+          body: JSON.stringify(data)
+        });
+        const content = await response.json();
+        console.log(content);
+        if (content.jwt) {
+          localStorage.setItem('jwt', content.jwt);
+        }
+      } catch (e) {
+        console.log(e)
+      }
+
+      router.push('/');
     }
 
     return {

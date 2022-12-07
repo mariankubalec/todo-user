@@ -37,17 +37,13 @@ export default {
     const auth = computed(() => store.state.authenticated);
 
     const logout = async () => {
-      await fetch(process.env.VUE_APP_ROOT_API + '/users/logout', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        credentials: 'include'
-      });
+      localStorage.removeItem('jwt')
       window.location.reload();
     }
 
     return {
       auth,
-      logout
+      logout,
     }
   }
 }
