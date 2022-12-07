@@ -4,3 +4,4 @@ django-environ
 PyJWT
 djangorestframework
 django-cors-headers
+gunicorn
