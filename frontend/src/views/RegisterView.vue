@@ -23,7 +23,9 @@ export default {
     const router = useRouter();
 
     const submit = async () => {
+      console.log('>>> R E G I S T E R <<<');
       console.log(data);
+      console.log(process.env.VUE_APP_ROOT_API);
       await fetch(process.env.VUE_APP_ROOT_API + '/users/register', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
