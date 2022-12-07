@@ -37,11 +37,12 @@ export default {
     const auth = computed(() => store.state.authenticated);
 
     const logout = async () => {
-      await fetch('http://localhost:8000/api/logout', {
+      await fetch(process.env.VUE_APP_ROOT_API + '/users/logout', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         credentials: 'include'
       });
+      window.location.reload();
     }
 
     return {

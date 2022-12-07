@@ -23,7 +23,7 @@ export default {
 
     const submit = async () => {
       console.log(data);
-      await fetch('http://localhost:8000/api/login', {
+      await fetch(process.env.VUE_APP_ROOT_API + '/users/login', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         credentials: 'include',
