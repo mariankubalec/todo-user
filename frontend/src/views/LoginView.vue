@@ -23,13 +23,15 @@ export default {
 
     const submit = async () => {
       console.log(data);
-      await fetch(process.env.VUE_APP_ROOT_API + '/users/login', {
+      const response = await fetch(process.env.VUE_APP_ROOT_API + '/users/login', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         credentials: 'include',
         body: JSON.stringify(data)
       });
-
+      const content = await response.json();
+      console.log('>>> J W T <<<');
+      console.log(content.jwt);
       await router.push('/');
     }
 
