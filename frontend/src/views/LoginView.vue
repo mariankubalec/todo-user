@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="submit">
+  <form @submit.prevent="submit" class="form-signin w-100 m-auto">
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
     <input v-model="data.email" type="email" class="form-control" placeholder="name@example.com">
     <input v-model="data.password" type="password" class="form-control" placeholder="password">
@@ -30,7 +30,6 @@ export default {
           body: JSON.stringify(data)
         });
         const content = await response.json();
-        console.log(content);
         if (content.jwt) {
           localStorage.setItem('jwt', content.jwt);
         }
@@ -50,5 +49,24 @@ export default {
 </script>
 
 <style scoped>
+/*.form-signin {*/
+/*  max-width: 330px;*/
+/*  padding: 15px;*/
+/*}*/
 
+/*.form-signin .form-floating:focus-within {*/
+/*  z-index: 2;*/
+/*}*/
+
+/*.form-signin input[type="email"] {*/
+/*  margin-bottom: -1px;*/
+/*  border-bottom-right-radius: 0;*/
+/*  border-bottom-left-radius: 0;*/
+/*}*/
+
+/*.form-signin input[type="password"] {*/
+/*  margin-bottom: 10px;*/
+/*  border-top-left-radius: 0;*/
+/*  border-top-right-radius: 0;*/
+/*}*/
 </style>

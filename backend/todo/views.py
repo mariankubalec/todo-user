@@ -36,9 +36,13 @@ class AddTodoView(APIView):
 class ListTodoView(APIView):
 
     def get(self, request):
-        token = request.COOKIES.get('jwt')  # TODO add to utils
+        # token = request.COOKIES.get('jwt')  # TODO add to utils
+        #
+        # if not token:
+        #     raise AuthenticationFailed('Unauthenticated!')
+        token = request.headers.get('Authorization')
 
-        if not token:
+        if not token or token == '':
             raise AuthenticationFailed('Unauthenticated!')
 
         try:

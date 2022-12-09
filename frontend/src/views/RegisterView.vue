@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="submit">
+  <form @submit.prevent="submit" class="form-signin w-100 m-auto">
     <h1 class="h3 mb-3 fw-normal">Please register</h1>
     <input v-model="data.name" class="form-control" placeholder="Name">
     <input v-model="data.email" type="email" class="form-control" placeholder="name@example.com">

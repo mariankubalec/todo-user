@@ -1,7 +1,8 @@
 <template>
   <NavBar/>
 
-  <main class="form-signin w-100 m-auto">
+<!--  <main class="form-signin w-100 m-auto">-->
+  <main>
     <router-view />
   </main>
 </template>
