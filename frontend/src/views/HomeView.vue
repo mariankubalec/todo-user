@@ -3,6 +3,8 @@
     {{ message }}
     <div v-if="auth">
       <div>Your todos:</div>
+<!--      <button class="w-100 btn btn-lg btn-primary" @click="count++">Add Todo</button>-->
+      <router-link to="/add-todo">Add todo</router-link>
       <div v-if="todo?.length > 0">
         <table class="styled-table">
           <thead>
