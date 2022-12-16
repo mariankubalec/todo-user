@@ -3,14 +3,12 @@
     {{ message }}
     <div v-if="auth">
       <div>Your todos:</div>
-<!--      <button class="w-100 btn btn-lg btn-primary" @click="count++">Add Todo</button>-->
       <router-link to="/add-todo">Add todo</router-link>
       <div v-if="todo?.length > 0">
         <table class="styled-table">
           <thead>
             <tr>
               <th>Title</th>
-              <th>Description</th>
               <th>Urgent</th>
               <th>Done</th>
               <th>Created</th>
@@ -20,7 +18,6 @@
           <tbody>
             <tr v-for="item in todo" :key=item.id>
               <td>{{ item.title }}</td>
-              <td>{{ item.description }}</td>
               <td>{{ item.is_urgent }}</td>
               <td>{{ item.is_done }}</td>
               <td v-text="getFormattedDateTime(item.creation_date)"></td>

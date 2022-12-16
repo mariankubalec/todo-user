@@ -10,10 +10,14 @@
 <script lang="ts">
 import {reactive} from 'vue';
 import {useRouter} from "vue-router";
+import {useStore} from "vuex";
+
 
 export default {
   name: "LoginView",
   setup() {
+    const store = useStore();
+
     const data = reactive({
       email: '',
       password: ''
@@ -32,6 +36,8 @@ export default {
         const content = await response.json();
         if (content.jwt) {
           localStorage.setItem('jwt', content.jwt);
+          localStorage.setItem('user-name', content.name);
+          await store.dispatch('setAuth', true);
         }
       } catch (e) {
         console.log(e)

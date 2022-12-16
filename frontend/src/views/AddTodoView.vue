@@ -6,7 +6,7 @@
         <label for="title">Title:</label>
         <input v-model="data.title" type="text" id="username" class="form-control" placeholder="Title" required>
         <label for="description">Description:</label>
-        <input v-model="data.description" type="password" id="description" class="form-control"
+        <input v-model="data.description" type="text" id="description" class="form-control"
                placeholder="Description">
         <label for="is_urgent">Is urgent:<span class="tab1"></span></label>
         <input v-model="data.is_urgent" type="checkbox" id="is_urgent"><br>
