@@ -1,5 +1,9 @@
 import jwt
-from rest_framework.exceptions import AuthenticationFailed, NotFound
+from rest_framework.exceptions import (
+    AuthenticationFailed,
+    NotFound,
+    PermissionDenied,
+)
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import TodoSerializer
@@ -30,9 +34,8 @@ class AddTodoView(APIView):
             raise AuthenticationFailed('Unauthenticated - No User found!')
 
         request.data['assignee'] = user.id
-        print(request.data)
         for_serializer = {}
-        for k,v in request.data.items():
+        for k, v in request.data.items():
             if v != '':
                 for_serializer[k] = v
         serializer = TodoSerializer(data=for_serializer)
@@ -72,11 +75,8 @@ class ListTodoView(APIView):
 
 class GetTodoView(APIView):
 
-    def get(self, request, pk):
-        # token = request.COOKIES.get('jwt')  # TODO add to utils
-        #
-        # if not token:
-        #     raise AuthenticationFailed('Unauthenticated!')
+    def get(self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
         token = request.headers.get('Authorization')
 
         if not token or token == '':
@@ -86,19 +86,48 @@ class GetTodoView(APIView):
             payload = jwt.decode(token, 'secret', algorithms=['HS256'])
         except jwt.ExpiredSignatureError:
             raise AuthenticationFailed('Unauthenticated!')
-
         user = User.objects.filter(id=payload['id']).first()
         if not user:
             raise AuthenticationFailed('Unauthenticated - No User found!')
 
-        todo = Todo.objects.filter(id=user.id)
+        todo = Todo.objects.filter(id=pk).first()
 
         if not todo:
-            raise NotFound('No Todo found!')
+            raise NotFound('NotFound - No Todo found!')
+
+        if todo.assignee.id != user.id:
+            raise PermissionDenied('Forbidden - wrong user')
 
         serializer = TodoSerializer(todo)
 
         return Response(serializer.data)
 
+    def post(self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
+        token = request.headers.get('Authorization')
 
+        if not token or token == '':
+            raise AuthenticationFailed('Unauthenticated!')
 
+        try:
+            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Unauthenticated!')
+        user = User.objects.filter(id=payload['id']).first()
+        if not user:
+            raise AuthenticationFailed('Unauthenticated - No User found!')
+
+        todo = Todo.objects.filter(id=pk).first()
+
+        if not todo:
+            raise NotFound('No Todo found!')
+
+        if todo.assignee.id != user.id:
+            raise PermissionDenied('Forbidden - wrong user')
+
+        Todo.objects.filter(id=pk).update(**request.data)
+
+        todo = Todo.objects.filter(id=pk).first()
+        serializer = TodoSerializer(todo)
+
+        return Response(serializer.data)
