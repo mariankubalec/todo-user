@@ -22,26 +22,26 @@
 </template>
 
 <script lang="ts">
-import {reactive, computed} from 'vue';
-import {useRouter} from "vue-router";
-import {useStore} from "vuex";
+import { reactive, computed } from 'vue';
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 
 export default {
   name: "AddTodoView",
 
   setup() {
     const data = reactive({
-      title: '',
-      description: '',
-      is_urgent: '',
-      is_done: '',
+      title: String,
+      description: String,
+      is_urgent: Boolean,
+      is_done: Boolean,
       due_date: '',
     });
 
     const router = useRouter();
     const store = useStore();
     const auth = computed(() => store.state.authenticated);
-
+    
     const submit = async () => {
       try {
         const value = localStorage.getItem("jwt") || "";

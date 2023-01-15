@@ -25,7 +25,7 @@
               <td v-text="getFormattedDateTime(item.creation_date)"></td>
               <td v-text="getFormattedDateTime(item.due_date)"></td>
               <td>
-                <router-link :to="{ name: 'TodoEditSingle', params: {id: item.id} }">Edit</router-link>
+                <router-link :to="{ name: 'TodoUpdateSingle', params: {id: item.id} }">Edit</router-link>
               </td>
             </tr>
           </tbody>
@@ -38,8 +38,10 @@
 
 <script lang="ts">
 import {onMounted, ref, computed} from "vue";
+// import type { Ref } from 'vue';
 import {useStore} from "vuex";
 import { getFormattedDateTime } from "../services/todo-view-service";
+import { Todo } from "../types/todo.Types.interface";
 
 export default {
   name: "HomeView",
@@ -49,20 +51,11 @@ export default {
       return getFormattedDateTime(input);
     },
   },
-  // methods: {
-  //   getFormattedDateTime(input: string): string {
-  //     if (input) {
-  //       return input.substring(0, input.indexOf('T'));
-  //     } else {
-  //       return '';
-  //     }
-  //   },
-  // },
 
   setup() {
     const message = ref("You are not logged in!");
     const store = useStore();
-    const todos = ref([]);
+    const todos = ref<Array<Todo>>([]);
 
     const auth = computed(() => store.state.authenticated);
     onMounted(async () => {

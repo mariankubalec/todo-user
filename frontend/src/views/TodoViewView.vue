@@ -92,44 +92,6 @@ export default {
       todo,
     }
   }
-
-
-  // setup() {
-  //   const route = useRoute();
-  //   const store = useStore();
-  //   // const singleTodo = ref();
-  //   const auth = computed(() => store.state.authenticated);
-  //   const todo = ref();
-
-  //   onMounted(async () => {
-  //     try {
-  //       const value = localStorage.getItem("jwt") || "";
-  //       console.log(route.params);
-  //       let response = await fetch(process.env.VUE_APP_ROOT_API + '/todos/' + route.params.id, {
-  //         method: 'GET',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           'Authorization': value
-  //         },
-  //         credentials: 'include',
-  //       });
-
-  //       // singleTodo.value = await response.json();
-  //       // singleTodo.value = response.json();
-  //       // console.log(singleTodo.value);
-  //       todo.value = response.json();
-
-  //     } catch (e) {
-  //       console.log(e)
-  //       await store.dispatch('setAuth', false);
-  //     }
-  //   });
-
-  //   return {
-  //     auth,
-  //     todo,
-  //   }
-  // }
 }
 </script>
 
