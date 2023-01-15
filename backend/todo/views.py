@@ -125,7 +125,9 @@ class GetTodoView(APIView):
         if todo.assignee.id != user.id:
             raise PermissionDenied('Forbidden - wrong user')
 
-        Todo.objects.filter(id=pk).update(**request.data)
+        serializer = TodoSerializer(data=request.data)
+        if serializer.is_valid():
+            Todo.objects.filter(id=pk).update(**request.data)
 
         todo = Todo.objects.filter(id=pk).first()
         serializer = TodoSerializer(todo)

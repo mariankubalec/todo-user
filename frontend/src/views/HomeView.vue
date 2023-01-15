@@ -3,7 +3,8 @@
     {{ message }}
     <div v-if="auth">
       <div>Your todos:</div>
-      <router-link to="/add-todo">Add todo</router-link>
+      <!-- <router-link to="/add-todo">Add todo</router-link> -->
+      <router-link :to="{ name: 'add' }">Add todo</router-link>
       <div v-if="todo?.length > 0">
         <table class="styled-table">
           <thead>
@@ -13,15 +14,19 @@
               <th>Done</th>
               <th>Created</th>
               <th>Due</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="item in todo" :key=item.id>
-              <td>{{ item.title }}</td>
+              <td><router-link :to="{ name: 'TodoViewSingle', params: {id: item.id} }">{{ item.title }}</router-link></td>
               <td>{{ item.is_urgent }}</td>
               <td>{{ item.is_done }}</td>
               <td v-text="getFormattedDateTime(item.creation_date)"></td>
               <td v-text="getFormattedDateTime(item.due_date)"></td>
+              <td>
+                <router-link :to="{ name: 'TodoEditSingle', params: {id: item.id} }">Edit</router-link>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -34,19 +39,25 @@
 <script lang="ts">
 import {onMounted, ref, computed} from "vue";
 import {useStore} from "vuex";
+import { getFormattedDateTime } from "../services/todo-view-service";
 
 export default {
   name: "HomeView",
 
   methods: {
     getFormattedDateTime(input: string): string {
-      if (input) {
-        return input.substring(0, input.indexOf('T'));
-      } else {
-        return '';
-      }
+      return getFormattedDateTime(input);
     },
   },
+  // methods: {
+  //   getFormattedDateTime(input: string): string {
+  //     if (input) {
+  //       return input.substring(0, input.indexOf('T'));
+  //     } else {
+  //       return '';
+  //     }
+  //   },
+  // },
 
   setup() {
     const message = ref("You are not logged in!");

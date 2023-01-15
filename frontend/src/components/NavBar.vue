@@ -2,7 +2,8 @@
   <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
     <div class="container-fluid" v-if="!auth">
       <router-link to="/" class="navbar-brand">Home</router-link>
-
+      <div class="navbar-brand">TODOappV0</div>
+      
       <div>
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
           <li class="nav-item">
@@ -16,6 +17,7 @@
     </div>
     <div class="container-fluid" v-if="auth">
       <router-link to="/" class="navbar-brand" v-text="getHomeText()"></router-link>
+      <div class="navbar-brand">TODOappV0</div>
       <div>
         <ul class="navbar-nav me-auto mb-2 mb-md-0" v-if="auth">
           <li class="nav-item">
