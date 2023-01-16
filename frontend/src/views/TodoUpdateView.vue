@@ -84,7 +84,7 @@ export default {
         const value = localStorage.getItem("jwt") || "";
         console.log(JSON.stringify(data));
         await fetch(process.env.VUE_APP_ROOT_API + '/todos/' + route.params.id,  {
-          method: 'POST',
+          method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': value
