@@ -66,7 +66,9 @@ export default {
         data.is_done = todo.value.is_done;
         let date:string = todo.value.due_date;
         console.log(date);
-        date = date.substring(0, date.length - 1);
+        if (date){
+          date = date.substring(0, date.length - 1);
+        }
         console.log(date);
         data.due_date = date;
 
