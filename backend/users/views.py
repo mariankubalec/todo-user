@@ -40,7 +40,6 @@ class LoginView(APIView):
 
         response = Response()
 
-        # response.set_cookie(key='jwt', value=token, httponly=True)
         response.data = {
             "jwt": token,
             "name": user.name
@@ -52,7 +51,6 @@ class LoginView(APIView):
 class UserView(APIView):
 
     def get(self, request):
-        # token = request.COOKIES.get('jwt')
         token = request.headers.get('Authorization')
 
         if not token or token == '':
