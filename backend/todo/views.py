@@ -163,3 +163,32 @@ class GetTodoView(APIView):
         serializer = TodoSerializer(todo)
 
         return Response(serializer.data)
+
+    def delete(self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
+        token = request.headers.get('Authorization')
+
+        if not token or token == '':
+            raise AuthenticationFailed('Unauthenticated!')
+
+        try:
+            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Unauthenticated!')
+        user = User.objects.filter(id=payload['id']).first()
+        if not user:
+            raise AuthenticationFailed('Unauthenticated - No User found!')
+
+        todo = Todo.objects.filter(id=pk).first()
+
+        if not todo:
+            raise NotFound('No Todo found!')
+
+        if todo.assignee.id != user.id:
+            raise PermissionDenied('Forbidden - wrong user')
+
+        todo = Todo.objects.filter(id=pk).first()
+        todo.delete()
+        serializer = TodoSerializer(todo)
+
+        return Response(serializer.data)
