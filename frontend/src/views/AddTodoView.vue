@@ -31,8 +31,8 @@ export default {
 
   setup() {
     const data = reactive({
-      title: String,
-      description: String,
+      title: '',
+      description: '',
       is_urgent: Boolean,
       is_done: Boolean,
       due_date: '',
