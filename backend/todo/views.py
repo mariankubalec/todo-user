@@ -14,10 +14,6 @@ from .models import Todo
 class AddTodoView(APIView):
 
     def post(self, request):
-        # token = request.COOKIES.get('jwt')   # TODO add to utils
-        #
-        # if not token:
-        #     raise AuthenticationFailed('Unauthenticated!')
 
         token = request.headers.get('Authorization')
 
@@ -35,7 +31,7 @@ class AddTodoView(APIView):
 
         request.data['assignee'] = user.id
         for_serializer = {}
-        for k, v in request.data.items():
+        for k, v in request.data.items():git
             if v != '':
                 for_serializer[k] = v
         serializer = TodoSerializer(data=for_serializer)
@@ -48,10 +44,6 @@ class AddTodoView(APIView):
 class ListTodoView(APIView):
 
     def get(self, request):
-        # token = request.COOKIES.get('jwt')  # TODO add to utils
-        #
-        # if not token:
-        #     raise AuthenticationFailed('Unauthenticated!')
         token = request.headers.get('Authorization')
 
         if not token or token == '':
