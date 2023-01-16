@@ -15,6 +15,7 @@
               <th>Created</th>
               <th>Due</th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -26,6 +27,9 @@
               <td v-text="getFormattedDateTime(item.due_date)"></td>
               <td>
                 <router-link :to="{ name: 'TodoUpdateSingle', params: {id: item.id} }">Edit</router-link>
+              </td>
+              <td>
+                <router-link :to="{ name: 'TodoDeleteSingle', params: {id: item.id} }">Delete</router-link>
               </td>
             </tr>
           </tbody>

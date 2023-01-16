@@ -15,6 +15,7 @@ const routes: Array<RouteRecordRaw> = [
   // {path: '/view', component: ViewTodoView},
   {path: '/todo/:id/view', name: 'TodoViewSingle', component: () => import('../views/TodoViewView.vue')},
   {path: '/todo/:id/update', name: 'TodoUpdateSingle', component: () => import('../views/TodoUpdateView.vue')},
+  {path: '/todo/:id/delete', name: 'TodoDeleteSingle', component: () => import('../views/TodoDeleteView.vue')},
 ]
 
 const router = createRouter({
